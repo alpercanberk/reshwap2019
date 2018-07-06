@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <script src="//static.filestackapi.com/filestack-js/1.x.x/filestack.min.js"></script>
+
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script>var currentUser = "{{ user }}"</script>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <link rel="apple-touch-icon" sizes="180x180" href="static/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="static/favicons/manifest.json">
+    <link rel="mask-icon" href="static/favicons/safari-pinned-tab.svg" color="#f77a37">
+    <link rel="shortcut icon" href="static/favicons/favicon.ico">
+    <meta name="msapplication-config" content="static/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#f77a37">
+
+    <title>Reshwap</title>
+  </head>
+  <body id="bootstrap-overrides">
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <script type="text/javascript" src="http://localhost:4000/static/js/bundle.js"></script>
+  </body>
+</html>
