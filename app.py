@@ -10,6 +10,8 @@ import google_auth_oauthlib.flow
 
 import datetime
 
+import json
+
 #scopes list determines which data we get from the user
 oauth_scopes = [
 "profile", #gets google profile
@@ -176,7 +178,7 @@ def items(category=None):
 def auth():
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow stepsself.
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
-      os.environ['CLIENT_SECRET'],
+      json.loads(os.environ['CLIENT_SECRET']),
       scopes=oauth_scopes,
       redirect_uri='http://localhost:5000/oauth2callback'
     )
