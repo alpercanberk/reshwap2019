@@ -8,7 +8,7 @@ import flask
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 
-import datetimeloc
+import datetime
 import json
 
 #scopes list determines which data we get from the user
