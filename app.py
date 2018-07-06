@@ -179,7 +179,7 @@ def auth():
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
       json.loads(os.environ['CLIENT_SECRET']),
       scopes=oauth_scopes,
-      redirect_uri='http://guarded-reaches-48427.herokuapp.com/oauth2callback'
+      redirect_uri='https://guarded-reaches-48427.herokuapp.com/oauth2callback'
     )
 
     authorization_url, state = flow.authorization_url(
