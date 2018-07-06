@@ -8,8 +8,7 @@ import flask
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 
-import datetime
-
+import datetimeloc
 import json
 
 #scopes list determines which data we get from the user
@@ -180,7 +179,7 @@ def auth():
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
       json.loads(os.environ['CLIENT_SECRET']),
       scopes=oauth_scopes,
-      redirect_uri='http://localhost:5000/oauth2callback'
+      redirect_uri='http://guarded-reaches-48427.com/oauth2callback'
     )
 
     authorization_url, state = flow.authorization_url(
