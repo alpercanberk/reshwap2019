@@ -20,6 +20,7 @@
   "scripts": {
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
+    "deploy": "react-scripts build && cp ./build/static/js/*.js ../static/bundle.js && rm -rf build/",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "toolbox": "react-toolbox-themr"

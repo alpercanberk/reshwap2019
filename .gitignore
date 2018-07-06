@@ -25,3 +25,5 @@ htmlcov/
 *,cover
 
 client_secret.json
+
+venv/*
