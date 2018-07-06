@@ -176,7 +176,7 @@ def items(category=None):
 def auth():
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow stepsself.
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
-      CLIENT_SECRET,
+      os.environ('CLIENT_SECRET'),
       scopes=oauth_scopes,
       redirect_uri='http://localhost:5000/oauth2callback'
     )
