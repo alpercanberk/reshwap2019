@@ -1,27 +1,27 @@
 client/node_modules
 
-api/.DS_Store
-api/.env
-api/.flaskenv
-api/*.pyc
-api/*.pyo
-api/env/
-api/env*
-api/dist/
-api/build/
-api/*.egg
-api/*.egg-info/
-api/_mailinglist
-api/.tox/
-api/.cache/
-api/.pytest_cache/
-api/.idea/
-api/docs/_build/
+.DS_Store
+.env
+.flaskenv
+*.pyc
+*.pyo
+env/
+env*
+dist/
+build/
+*.egg
+*.egg-info/
+_mailinglist
+.tox/
+.cache/
+.pytest_cache/
+.idea/
+docs/_build/
 
 # Coverage reports
-api/htmlcov/
-api/.coverage
-api/.coverage.*
-api/*,cover
+htmlcov/
+.coverage
+.coverage.*
+*,cover
 
-api/client_secret.json
+client_secret.json
