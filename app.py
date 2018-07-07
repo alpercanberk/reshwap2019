@@ -249,9 +249,9 @@ def logout():
 
     return redirect('/')
 
-@app.route('/.well-known/acme-challenge/xf2gR9k6Zw-P7DB1V_jbXbnk_DvM3V-tOBSUgKJtd8A')
+@app.route('/.well-known/acme-challenge/D7KL4EsRSqpkfbtUnHmbyimH9D_k-DfYJp3Lezpn6M0')
 def certificate():
-    return 'xf2gR9k6Zw-P7DB1V_jbXbnk_DvM3V-tOBSUgKJtd8A.XJCCq-TzDG6P7Y2xlbxIwndc_G2BCn7oYQESoqR_wvg'
+    return 'D7KL4EsRSqpkfbtUnHmbyimH9D_k-DfYJp3Lezpn6M0.XJCCq-TzDG6P7Y2xlbxIwndc_G2BCn7oYQESoqR_wvg'
 
 if __name__ == '__main__':
     app.secret_key = 'alper_secret_key'
