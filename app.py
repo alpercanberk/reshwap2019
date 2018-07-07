@@ -249,6 +249,10 @@ def logout():
 
     return redirect('/')
 
+@app.route('/.well-known/acme-challenge/xf2gR9k6Zw-P7DB1V_jbXbnk_DvM3V-tOBSUgKJtd8A')
+def certificate():
+    return 'xf2gR9k6Zw-P7DB1V_jbXbnk_DvM3V-tOBSUgKJtd8A.XJCCq-TzDG6P7Y2xlbxIwndc_G2BCn7oYQESoqR_wvg'
+
 if __name__ == '__main__':
     app.secret_key = 'alper_secret_key'
     app.config['SESSION_TYPE'] = 'filesystem'
