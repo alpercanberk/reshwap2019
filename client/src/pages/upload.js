@@ -89,17 +89,7 @@ class Upload extends Component {
           })
           .then(() => {
             alert("Upload successful!");
-            console.log(values);
-            this.setState({
-              category_value: "Books",
-              money_value: "",
-              exchange_value: "",
-              details_value: "",
-              dep_value: "English",
-              title_value: "",
-              files: "",
-              loading: false
-            });
+            window.location = window.CURRENT_HOST + '#/myitems'
           });
       });
     } else {
