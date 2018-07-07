@@ -29,8 +29,6 @@ import axios from "axios";
 
 import Display from "./components/display.js";
 
-var api_url = "http://localhost:5000";
-
 class App extends Component {
   render() {
     return (
