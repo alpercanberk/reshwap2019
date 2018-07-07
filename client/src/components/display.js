@@ -18,7 +18,7 @@ class Display extends Component {
 
   componentWillMount() {
     axios
-      .get("http://localhost:5000/items?category=" + this.props.category)
+      .get(window.CURRENT_HOST + "items?category=" + this.props.category)
       .then(res => {
         this.setState({ data: res.data });
         console.log(this.state.data);

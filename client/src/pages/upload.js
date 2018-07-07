@@ -9,7 +9,7 @@ import * as filestack from "filestack-js";
 let form_style = { margin: "0px 10px" };
 const client = filestack.init("Ayjmq4atHRriGGEMpUUvhz");
 
-var uploadURL = "http://localhost:5000/upload";
+var uploadURL = window.CURRENT_HOST + "upload";
 
 class Upload extends Component {
   constructor() {

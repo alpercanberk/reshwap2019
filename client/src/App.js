@@ -107,7 +107,7 @@ class App extends Component {
               component={() => {
                 axios
                   .get("/logout")
-                  .then((window.location = "reshwap.com"));
+                  .then((window.location = window.CURRENT_HOST));
               }}
             />
           </div>

@@ -36,7 +36,7 @@ class Books extends Component {
   }
 
   componentWillMount() {
-    axios.get("http://localhost:5000/items?category=Books").then(res => {
+    axios.get(window.CURRENT_HOST + "items?category=Books").then(res => {
       this.setState({ data: res.data });
       console.log(this.state.data);
     });

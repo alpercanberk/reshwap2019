@@ -118,7 +118,7 @@ const Thumbnail = ({ data, deleteFunc }) => {
                       )
                     ) {
                       axios
-                        .delete("http://localhost:5000/complete?id=" + data.id)
+                        .delete(window.CURRENT_HOST +  "/complete?id=" + data.id)
                         .then(window.location.reload());
                     }
                   }}

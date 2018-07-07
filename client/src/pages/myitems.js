@@ -18,7 +18,7 @@ class MyItems extends Component {
   }
 
   componentWillMount() {
-    axios.get("http://localhost:5000/items/i").then(res => {
+    axios.get(window.CURRENT_HOST + "items/i").then(res => {
       this.setState({ data: res.data });
       console.log(this.state.data);
     });

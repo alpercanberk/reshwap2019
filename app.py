@@ -98,7 +98,7 @@ def index():
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
         db.session.commit()
-        return render_template("home.html", user = flask.session['user_info']['email'])
+        return render_template("home.html", user = flask.session['user_info']['email'], current_host= flask.request.url_root)
     return render_template("index.html")
 
 
@@ -175,11 +175,12 @@ def items(category=None):
 
 @app.route('/auth/google')
 def auth():
+    print(flask.request.url_root)
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow stepsself.
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
       json.loads(os.environ['CLIENT_SECRET']),
       scopes=oauth_scopes,
-      redirect_uri='https://www.reshwap.com/oauth2callback'
+      redirect_uri= flask.request.url_root + 'oauth2callback'
     )
 
     authorization_url, state = flow.authorization_url(
