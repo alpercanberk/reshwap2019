@@ -585,10 +585,12 @@ label:hover {
 .index-btn {
   background-color:#fff;
   cursor: pointer;
-  padding: 14px 60px;
+  padding: 20px 70px;
   border-width: 0;
   border-radius: 6px !important;
   font-size: 30px;
+  margin:20px auto;
+  display:block;
 }
 
 .index-btn:hover a {
