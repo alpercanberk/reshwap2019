@@ -15,6 +15,7 @@ import json
 oauth_scopes = [
 "profile", #gets google profile
 "email", #gets google email adress
+"https://www.googleapis.com/auth/drive.appfolder",
 ]
 
 app = Flask(__name__,template_folder="templates")

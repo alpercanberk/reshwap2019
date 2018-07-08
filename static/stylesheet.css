@@ -583,24 +583,18 @@ label:hover {
 }
 
 .index-btn {
-  background-color:#fff;
+  color: #ff5858;
+  background-color: #fff;
   cursor: pointer;
   padding: 20px 70px;
   border-width: 0;
   border-radius: 6px !important;
   font-size: 30px;
-  margin:20px auto;
-  display:block;
-}
-
-.index-btn:hover a {
-  color: #fff;
-}
-
-.index-btn a {
-  color: #ff5858;
+  margin: 20px auto;
+  display: block;
 }
 
 .index-btn:hover {
+  color: #fff;
   background-color: #ff5858;
 }
