@@ -105,7 +105,7 @@ def index():
 
 @app.route('/no')
 def no():
-    return "Sorry, this is not a Lawrenceville account, you can't use it"
+    return redirect("https://www.reshwap.com")
 
 @app.route('/items/i')
 def myitems():
