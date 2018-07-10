@@ -43,6 +43,7 @@ class ReshwapItems(db.Model):
     date = db.Column(db.String())
     is_completed = db.Column(db.Boolean())
 
+
     def __init__(self, uploader, title, details, category, department, money, exchange, image_one, image_two, image_three, image_four, date, is_completed):
         self.uploader = uploader
         self.title = title

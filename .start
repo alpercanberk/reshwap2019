@@ -1,0 +1,5 @@
+cd client
+npm run deploy
+cd ..
+python app.py
+

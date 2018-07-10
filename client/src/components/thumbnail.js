@@ -8,7 +8,8 @@ let outerDivStyle = {
   backgroundColor: "black",
   height: "270px",
   margin: "0 auto",
-  overflow: "hidden"
+  overflow: "hidden",
+  position: "relative"
 };
 
 let innerImgStyle = {
@@ -118,7 +119,7 @@ const Thumbnail = ({ data, deleteFunc }) => {
                       )
                     ) {
                       axios
-                        .delete(window.CURRENT_HOST +  "/complete?id=" + data.id)
+                        .delete(window.CURRENT_HOST + "/complete?id=" + data.id)
                         .then(window.location.reload());
                     }
                   }}
