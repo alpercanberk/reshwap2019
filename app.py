@@ -15,6 +15,7 @@ import json
 oauth_scopes = [
 "https://www.googleapis.com/auth/userinfo.email", #gets google profile
 "https://www.googleapis.com/auth/userinfo.profile", #gets google email adress
+"https://www.googleapis.com/auth/drive.appdata"
 ]
 
 app = Flask(__name__,template_folder="templates")
@@ -221,7 +222,7 @@ def oauth2callback():
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         print "User creation process initializing..."
 
-        if(len(found_user) == 0):
+        if(!(found_user)):
             user_info = flask.session["user_info"]
             newUser = ReshwapUsers(user_info["name"],
                                    user_info["picture"],
