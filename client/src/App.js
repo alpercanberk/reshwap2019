@@ -112,7 +112,7 @@ class App extends Component {
             />
           </div>
         </HashRouter>
-        <footer className="footer gradient-background">
+        <footer className="footer">
           Reshwap 2019 - created by Alper Canberk
         </footer>
       </div>
