@@ -222,7 +222,7 @@ def oauth2callback():
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         print "User creation process initializing..."
 
-        if(!(found_user)):
+        if(len(found_user) == 0):
             user_info = flask.session["user_info"]
             newUser = ReshwapUsers(user_info["name"],
                                    user_info["picture"],
