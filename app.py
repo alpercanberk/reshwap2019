@@ -15,7 +15,6 @@ import json
 oauth_scopes = [
 "profile", #gets google profile
 "email", #gets google email adress
-"https://www.googleapis.com/auth/drive.appfolder",
 ]
 
 app = Flask(__name__,template_folder="templates")
@@ -171,9 +170,6 @@ def items(category=None):
         items.append(dict)
 
     return jsonify(items)
-
-
-
 
 @app.route('/auth/google')
 def auth():
