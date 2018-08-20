@@ -13,8 +13,8 @@ import json
 
 #scopes list determines which data we get from the user
 oauth_scopes = [
-"profile", #gets google profile
-"email", #gets google email adress
+"https://www.googleapis.com/auth/userinfo.email", #gets google profile
+"https://www.googleapis.com/auth/userinfo.profile", #gets google email adress
 ]
 
 app = Flask(__name__,template_folder="templates")
