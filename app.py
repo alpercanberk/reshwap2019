@@ -95,14 +95,14 @@ class ReshwapUsers(db.Model):
 @app.route('/')
 def index():
 
-    # if('credentials' in flask.session):
-    #     found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
-    #     found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-    #     db.session.commit()
-    #     return render_template("home.html",
-    #                            user = flask.session['user_info']['email'],
-    #                            current_host= flask.request.url_root,
-    #                            accessKeyId = os.environ["ACCESS_KEY_ID"])
+    if('credentials' in flask.session):
+        found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
+        found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        db.session.commit()
+        return render_template("home.html",
+                               user = flask.session['user_info']['email'],
+                               current_host= flask.request.url_root,
+                               accessKeyId = os.environ["ACCESS_KEY_ID"])
     return render_template("index.html")
 
 
