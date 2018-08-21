@@ -4,12 +4,18 @@ import { Button } from "react-bootstrap";
 
 import axios from "axios";
 
-import * as filestack from "filestack-js";
-
-let form_style = { margin: "0px 10px" };
-const client = filestack.init("Ayjmq4atHRriGGEMpUUvhz");
+import ReactS3 from "../components/s3uploader/ReactS3";
 
 var uploadURL = window.CURRENT_HOST + "upload";
+let form_style = { margin: "0px 10px" };
+
+const config = {
+  bucketName: "reshwapimages",
+  albumName: "images",
+  region: "us-east-2",
+  accessKeyId: window.accessKeyId,
+  secretAccessKey: "LkDwg8G6HIAhXrmXUBq0Ox7zwbYkuKKpK40bXTkv"
+};
 
 class Upload extends Component {
   constructor() {
@@ -70,7 +76,7 @@ class Upload extends Component {
 
     if (isValid) {
       for (i = 0; i < this.state.files.length; i++) {
-        p = client.upload(this.state.files[i]);
+        p = ReactS3.upload(this.state.files[i]);
         allUploadPromises.push(p);
       }
       this.setState({ loading: true });
@@ -89,7 +95,7 @@ class Upload extends Component {
           })
           .then(() => {
             alert("Upload successful!");
-            window.location = window.CURRENT_HOST + '#/myitems'
+            window.location = window.CURRENT_HOST + "#/myitems";
           });
       });
     } else {
