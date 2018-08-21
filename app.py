@@ -15,7 +15,6 @@ import json
 oauth_scopes = [
 "https://www.googleapis.com/auth/userinfo.email", #gets google profile
 "https://www.googleapis.com/auth/userinfo.profile", #gets google email adress
-"https://www.googleapis.com/auth/drive.appdata"
 ]
 
 app = Flask(__name__,template_folder="templates")
@@ -96,11 +95,14 @@ class ReshwapUsers(db.Model):
 @app.route('/')
 def index():
 
-    if('credentials' in flask.session):
-        found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
-        found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        db.session.commit()
-        return render_template("home.html", user = flask.session['user_info']['email'], current_host= flask.request.url_root)
+    # if('credentials' in flask.session):
+    #     found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
+    #     found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+    #     db.session.commit()
+    #     return render_template("home.html",
+    #                            user = flask.session['user_info']['email'],
+    #                            current_host= flask.request.url_root,
+    #                            accessKeyId = os.environ["ACCESS_KEY_ID"])
     return render_template("index.html")
 
 
@@ -202,6 +204,8 @@ def credentials_to_dict(credentials):
 @app.route('/oauth2callback')
 def oauth2callback():
     state = flask.session['state']
+    print "State:"
+    print state
 
     flow = google_auth_oauthlib.flow.Flow.from_client_config(json.loads(os.environ['CLIENT_SECRET']), scopes=oauth_scopes, state=state)
     flow.redirect_uri = flask.url_for('oauth2callback', _external=True)
@@ -210,7 +214,7 @@ def oauth2callback():
     flow.fetch_token(authorization_response=authorization_response)
 
     credentials = flow.credentials
-    print(credentials)
+    print(credentials_to_dict(credentials))
     flask.session['credentials'] = credentials_to_dict(credentials)
 
     session = flow.authorized_session()
@@ -219,11 +223,12 @@ def oauth2callback():
     flask.session["user_info"] = user_info
 
     if("@lawrenceville.org" in flask.session["user_info"]["email"]):
+
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         print found_user
         print "User creation process initializing..."
 
-        if( not found_user):
+        if(not found_user):
             user_info = flask.session["user_info"]
             newUser = ReshwapUsers(user_info["name"],
                                    user_info["picture"],
