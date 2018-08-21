@@ -77,7 +77,13 @@ class Upload extends Component {
     if (isValid) {
       this.setState({ loading: true });
       for (i = 0; i < this.state.files.length; i++) {
-        p = ReactS3.upload(this.state.files[i]);
+        p = ReactS3.upload(this.state.files[i])
+          .then(data => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
         allUploadPromises.push(p);
       }
       Promise.all(allUploadPromises).then(values => {
