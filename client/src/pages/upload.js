@@ -11,10 +11,9 @@ let form_style = { margin: "0px 10px" };
 
 const config = {
   bucketName: "reshwapimages",
-  albumName: "images",
   region: "us-east-2",
-  accessKeyId: window.accessKeyId,
-  secretAccessKey: "LkDwg8G6HIAhXrmXUBq0Ox7zwbYkuKKpK40bXTkv"
+  accessKeyId: "AKIAIRCRJSX4GBPH3CXA",
+  secretAccessKey: "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"
 };
 
 class Upload extends Component {
@@ -27,7 +26,7 @@ class Upload extends Component {
       details_value: "",
       dep_value: "English",
       title_value: "",
-      files: "",
+      files: [],
       loading: false
     };
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -76,19 +75,45 @@ class Upload extends Component {
 
     if (isValid) {
       this.setState({ loading: true });
-      for (i = 0; i < this.state.files.length; i++) {
-        p = S3FileUpload.uploadFile(this.state.files[i], config)
+
+      console.log(this.state.files);
+
+      const newFiles = Array.from(this.state.files).map((file, index) => {
+        const name =
+          index.toString() +
+          Date.now() +
+          Math.floor(Math.random() * 10) +
+          file.name.substring(file.name.lastIndexOf("."));
+        return new File([file], name, { type: file.type });
+      });
+
+      console.log(newFiles);
+
+      // console.log("FILE STATE:");
+      // this.setState(
+      //   {
+      //     files: newFiles
+      //   },
+      //   () => {
+      //     console.log(this.state.files);
+      //   }
+      // );
+
+      for (i = 0; i < newFiles.length; i++) {
+        p = S3FileUpload.uploadFile(newFiles[i], config)
           .then(data => {
-            console.log(data);
+            return data;
           })
           .catch(err => {
             console.log(err);
           });
         allUploadPromises.push(p);
       }
-      Promise.all(allUploadPromises).then(values => {
-        console.log("Images uploaded");
-        console.log(values);
+
+      Promise.all(allUploadPromises).then(data => {
+        var images = data.map(file => file.location);
+        console.log("IMAGE URLS:");
+        console.log(images);
         axios
           .post(uploadURL, {
             uploader: window.currentUser,
@@ -98,7 +123,7 @@ class Upload extends Component {
             details: this.state.details_value,
             money: this.state.money_value,
             exchange: this.state.exchange_value,
-            imageUrls: values
+            imageUrls: images
           })
           .then(() => {
             alert("Upload successful!");
@@ -260,6 +285,7 @@ class Upload extends Component {
                     this.fileInput.current.files[3]
                   ]
                 },
+
                 console.log("files:", this.state.files)
               );
             } else {
