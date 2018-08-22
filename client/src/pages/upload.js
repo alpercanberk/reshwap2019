@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 
 import axios from "axios";
 
-import ReactS3 from "../components/s3uploader/ReactS3";
+import S3FileUpload from "../components/s3uploader/ReactS3.js";
 
 var uploadURL = window.CURRENT_HOST + "upload";
 let form_style = { margin: "0px 10px" };
@@ -77,7 +77,7 @@ class Upload extends Component {
     if (isValid) {
       this.setState({ loading: true });
       for (i = 0; i < this.state.files.length; i++) {
-        p = ReactS3.upload(this.state.files[i])
+        p = S3FileUpload.uploadFile(this.state.files[i], config)
           .then(data => {
             console.log(data);
           })
@@ -88,6 +88,7 @@ class Upload extends Component {
       }
       Promise.all(allUploadPromises).then(values => {
         console.log("Images uploaded");
+        console.log(values);
         axios
           .post(uploadURL, {
             uploader: window.currentUser,
@@ -97,7 +98,7 @@ class Upload extends Component {
             details: this.state.details_value,
             money: this.state.money_value,
             exchange: this.state.exchange_value,
-            imageUrls: values.map(value => value.url)
+            imageUrls: values
           })
           .then(() => {
             alert("Upload successful!");
@@ -189,7 +190,7 @@ class Upload extends Component {
         <h4 style={{ marginLeft: "10px" }}>Title</h4>
         <div className="form-group" style={form_style}>
           <textarea
-            maxlength="70"
+            maxLength="70"
             className="form-control"
             rows="1"
             onChange={this.handleTitleChange}
@@ -270,7 +271,7 @@ class Upload extends Component {
         />
         <div style={{ marginLeft: "10px" }}>
           <label for="file">
-            <i class="glyphicon glyphicon-inbox" /> Choose files
+            <i className="glyphicon glyphicon-inbox" /> Choose files
           </label>
           <span style={{ marginLeft: "10px" }}>
             {this.state.files.length > 0

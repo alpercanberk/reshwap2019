@@ -75,7 +75,6 @@ class ReshwapUsers(db.Model):
     signup_date = db.Column(db.String())
     last_login = db.Column(db.String())
 
-
     def __init__(self, name, profile_pic, email, signup_date, last_login):
         self.name = name
         self.profile_pic = profile_pic
@@ -185,7 +184,7 @@ def auth():
     )
 
     authorization_url, state = flow.authorization_url(
-      access_type='offline',
+      prompt='consent',
       include_granted_scopes='true')
 
     flask.session['state'] = state
@@ -216,6 +215,11 @@ def oauth2callback():
     credentials = flow.credentials
     print(credentials_to_dict(credentials))
     flask.session['credentials'] = credentials_to_dict(credentials)
+
+    if flask.session['credentials']['refresh_token'] == None:
+        print(">>>>")
+        # flow.credentials.token = "1/NWvP0mjD4Vp3xs22FkvdqWHw-_7VUyC2VN7zcsthHcw"
+        flask.session['credentials']['refresh_token'] = "1/NWvP0mjD4Vp3xs22FkvdqWHw-_7VUyC2VN7zcsthHcw"
 
     session = flow.authorized_session()
     user_info = session.get('https://www.googleapis.com/userinfo/v2/me').json()
