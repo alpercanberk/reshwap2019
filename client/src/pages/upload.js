@@ -239,7 +239,7 @@ class Upload extends Component {
             />
           </div>
           <div className="col-xs-9">
-            <h5>Exchange ⚖️</h5>
+            <h5>Exchange ⚖️ (would exchange for...)</h5>
             <textarea
               maxlength="100"
               onChange={this.handleExChange}
