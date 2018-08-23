@@ -89,16 +89,6 @@ class Upload extends Component {
 
       console.log(newFiles);
 
-      // console.log("FILE STATE:");
-      // this.setState(
-      //   {
-      //     files: newFiles
-      //   },
-      //   () => {
-      //     console.log(this.state.files);
-      //   }
-      // );
-
       for (i = 0; i < newFiles.length; i++) {
         p = S3FileUpload.uploadFile(newFiles[i], config)
           .then(data => {
@@ -114,6 +104,7 @@ class Upload extends Component {
         var images = data.map(file => file.location);
         console.log("IMAGE URLS:");
         console.log(images);
+        console.log(images[0]);
         axios
           .post(uploadURL, {
             uploader: window.currentUser,

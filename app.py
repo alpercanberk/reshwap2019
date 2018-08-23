@@ -175,7 +175,6 @@ def items(category=None):
 
 @app.route('/auth/google')
 def auth():
-    print(flask.request.url_root)
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow stepsself.
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
       json.loads(os.environ['CLIENT_SECRET']),
@@ -203,8 +202,6 @@ def credentials_to_dict(credentials):
 @app.route('/oauth2callback')
 def oauth2callback():
     state = flask.session['state']
-    print "State:"
-    print state
 
     flow = google_auth_oauthlib.flow.Flow.from_client_config(json.loads(os.environ['CLIENT_SECRET']), scopes=oauth_scopes, state=state)
     flow.redirect_uri = flask.url_for('oauth2callback', _external=True)
@@ -266,4 +263,4 @@ def certificate():
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run()
+    app.run(port=os.environ['PORT'])
