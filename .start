@@ -1,5 +1,5 @@
 cd client
 npm run deploy
 cd ..
+source .env
 python app.py
-

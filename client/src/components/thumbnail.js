@@ -13,23 +13,28 @@ let outerDivStyle = {
 };
 
 let innerImgStyle = {
-  position: "absolute",
-  top: "0",
-  bottom: "0",
-  left: "0",
-  right: "0",
   margin: "auto",
   maxHeight: "100%",
   maxWidth: "100%"
 };
 
+let center = {
+  position: "absolute",
+  top: "0",
+  bottom: "0",
+  left: "0",
+  right: "0"
+};
+
 const Thumbnail = ({ data, deleteFunc }) => {
   console.log(data);
+
+  const imageTwoStyle = !!data.image_two ? {} : center;
   let carousel = (
     <div style={{ ...outerDivStyle, borderRadius: "5px" }}>
       <img
         src={data.image_one ? data.image_one : "static/emptyImage.png"}
-        style={innerImgStyle}
+        style={{ ...innerImgStyle, ...imageTwoStyle }}
       />
     </div>
   );
