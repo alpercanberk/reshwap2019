@@ -31,7 +31,7 @@ let carouselStyle = {
   borderRadius: "5px"
 };
 
-let outerCarouselStyle = {
+let carouselItemStyle = {
   backgroundColor: "black",
   height: "270px",
   margin: "0 auto",
@@ -41,6 +41,8 @@ let outerCarouselStyle = {
 let innerCarouselStyle = {
   margin: "auto",
   position: "absolute",
+  maxHeight: "100%",
+  maxWidth: "100%",
   top: "0",
   bottom: "0",
   left: "0",
@@ -72,11 +74,7 @@ const Thumbnail = ({ data, deleteFunc }) => {
         {images.map(image => {
           if (image != "") {
             return (
-              <Carousel.Item
-                style={{
-                  outerCarouselStyle
-                }}
-              >
+              <Carousel.Item style={carouselItemStyle}>
                 <img src={image} style={innerCarouselStyle} />
               </Carousel.Item>
             );
@@ -90,7 +88,9 @@ const Thumbnail = ({ data, deleteFunc }) => {
     <div className="item-thumbnail-wrapper">
       <div className="item-thumbnail">
         <div className="row">
-          <div className="col-md-3">{carousel}</div>
+          <div className="col-md-3">
+            <div>{carousel}</div>
+          </div>
           <div className="col-md-9">
             <div style={{ marginLeft: "10px" }}>
               <h2>{data.title}</h2>
