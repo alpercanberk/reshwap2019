@@ -4,21 +4,42 @@ import { Carousel } from "react-bootstrap";
 
 import axios from "axios";
 
-let outerDivStyle = {
+let outerImgStyle = {
   backgroundColor: "black",
   height: "270px",
   margin: "0 auto",
   overflow: "hidden",
-  position: "relative"
+  position: "relative",
+  borderRadius: "5px"
 };
 
 let innerImgStyle = {
   margin: "auto",
   maxHeight: "100%",
-  maxWidth: "100%"
+  maxWidth: "100%",
+  position: "absolute",
+  top: "0",
+  bottom: "0",
+  left: "0",
+  right: "0"
 };
 
-let center = {
+let carouselStyle = {
+  height: "270px",
+  margin: "0 auto",
+  overflow: "hidden",
+  borderRadius: "5px"
+};
+
+let outerCarouselStyle = {
+  backgroundColor: "black",
+  height: "270px",
+  margin: "0 auto",
+  overflow: "hidden"
+};
+
+let innerCarouselStyle = {
+  margin: "auto",
   position: "absolute",
   top: "0",
   bottom: "0",
@@ -29,12 +50,11 @@ let center = {
 const Thumbnail = ({ data, deleteFunc }) => {
   console.log(data);
 
-  const imageTwoStyle = !!data.image_two ? {} : center;
   let carousel = (
-    <div style={{ ...outerDivStyle, borderRadius: "5px" }}>
+    <div style={outerImgStyle}>
       <img
         src={data.image_one ? data.image_one : "static/emptyImage.png"}
-        style={{ ...innerImgStyle, ...imageTwoStyle }}
+        style={innerImgStyle}
       />
     </div>
   );
@@ -48,19 +68,16 @@ const Thumbnail = ({ data, deleteFunc }) => {
 
   if (data.image_two) {
     carousel = (
-      <Carousel
-        style={{
-          height: "270px",
-          margin: "0 auto",
-          overflow: "hidden",
-          borderRadius: "5px"
-        }}
-      >
+      <Carousel style={carouselStyle}>
         {images.map(image => {
           if (image != "") {
             return (
-              <Carousel.Item style={outerDivStyle}>
-                <img src={image} style={innerImgStyle} />
+              <Carousel.Item
+                style={{
+                  outerCarouselStyle
+                }}
+              >
+                <img src={image} style={innerCarouselStyle} />
               </Carousel.Item>
             );
           }
@@ -73,9 +90,7 @@ const Thumbnail = ({ data, deleteFunc }) => {
     <div className="item-thumbnail-wrapper">
       <div className="item-thumbnail">
         <div className="row">
-          <div className="col-md-3">
-            <div>{carousel}</div>
-          </div>
+          <div className="col-md-3">{carousel}</div>
           <div className="col-md-9">
             <div style={{ marginLeft: "10px" }}>
               <h2>{data.title}</h2>
