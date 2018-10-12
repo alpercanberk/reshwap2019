@@ -256,9 +256,9 @@ def logout():
 
     return redirect('/')
 
-@app.route('/.well-known/acme-challenge/D7KL4EsRSqpkfbtUnHmbyimH9D_k-DfYJp3Lezpn6M0')
+@app.route('/.well-known/acme-challenge/FyDKFWwE3CUmNIUO5Jj-JPyaKUBg5ApUk17iPXOJdj0')
 def certificate():
-    return 'D7KL4EsRSqpkfbtUnHmbyimH9D_k-DfYJp3Lezpn6M0.XJCCq-TzDG6P7Y2xlbxIwndc_G2BCn7oYQESoqR_wvg'
+    return 'FyDKFWwE3CUmNIUO5Jj-JPyaKUBg5ApUk17iPXOJdj0.XJCCq-TzDG6P7Y2xlbxIwndc_G2BCn7oYQESoqR_wvg'
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)

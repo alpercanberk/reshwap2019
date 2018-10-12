@@ -1,0 +1,7 @@
+export DATABASE_URL="postgresql://localhost/reshwapdb"
+export APP_SETTINGS=config.StagingConfig
+export OAUTHLIB_INSECURE_TRANSPORT=1
+export CLIENT_SECRET='{"web":{"client_id":"871073665464-2r5i1ufs9hs72lob6hqi3jthticpi3bo.apps.googleusercontent.com","project_id":"reshwap2018-208417","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://www.googleapis.com/oauth2/v3/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"ljKK_blbZKhU40mSxwmy2uAe","redirect_uris":["http://localhost:5000/oauth2callback","https://guarded-reaches-48427.herokuapp.com/oauth2callback","https://www.reshwap.com/oauth2callback"]}}'
+export PORT=4001
+
+export ACCESS_KEY_ID=AKIAIRCRJSX4GBPH3CXA
