@@ -10,10 +10,10 @@ var uploadURL = window.CURRENT_HOST + "upload";
 let form_style = { margin: "0px 10px" };
 
 const config = {
-  bucketName: "reshwapimages",
+  bucketName: "images4reshwap",
   region: "us-east-2",
-  accessKeyId: "AKIAIRCRJSX4GBPH3CXA",
-  secretAccessKey: "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"
+  accessKeyId: window.ACCESS_KEY_ID,
+  secretAccessKey: window.SECRET_KEY
 };
 
 class Upload extends Component {

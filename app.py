@@ -101,7 +101,9 @@ def index():
         return render_template("home.html",
                                user = flask.session['user_info']['email'],
                                current_host= flask.request.url_root,
-                               accessKeyId = os.environ["ACCESS_KEY_ID"])
+                               accessKeyId = os.environ["ACCESS_KEY_ID"],
+                               secretKey = os.environ["SECRET_KEY"]),
+                            )
     return render_template("index.html")
 
 
