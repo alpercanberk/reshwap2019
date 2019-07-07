@@ -88,10 +88,10 @@ const Thumbnail = ({ data, deleteFunc }) => {
     <div className="item-thumbnail-wrapper">
       <div className="item-thumbnail">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-sm-4">
             <div>{carousel}</div>
           </div>
-          <div className="col-md-9">
+          <div className="col-sm-8">
             <div style={{ marginLeft: "10px" }}>
               <h2>{data.title}</h2>
               <p style={{ fontSize: "15px" }}>{data.details}</p>
@@ -138,13 +138,14 @@ const Thumbnail = ({ data, deleteFunc }) => {
                         "Do you really want to delete " + data.title + "?"
                       )
                     ) {
+                      console.log("deleting");
                       axios
-                        .delete(window.CURRENT_HOST + "/complete?id=" + data.id)
+                        .post(window.CURRENT_HOST + "complete?id=" + data.id)
                         .then(window.location.reload());
                     }
                   }}
                 >
-                  DELETE/COMPLETE ITEM
+                  DELETE ITEM
                 </button>
               )}
             </div>

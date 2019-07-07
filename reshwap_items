@@ -1,0 +1,111 @@
+\list
+create database library_dev;
+\q
+\c library_dev
+\dt
+\d results
+\q
+delete database library_dev 
+create database library
+\q
+create database library;
+\q
+\c wordcount_dev
+\c library
+\dt
+\d results
+\d books
+\q
+create database reshwap_uploads
+\q
+create database reshwap_items;
+\q
+delete database reshwap_items;
+delete reshwap_items;
+\h
+l
+\?
+ls
+drop database reshwap_items;
+drop database reshwap_items;
+ls
+create database reshwap_items
+\q
+create database reshwap_items;
+\q
+drop database reshwap_items;
+drop database reshwap_items;
+drop database reshwap_items;
+create database reshwap_items;
+\q
+create database reshwapdb;
+\q
+\q
+postgres=# \du
+\q
+\c
+\dt
+\;
+\l
+exit
+\q
+\dt
+\l reshwap_items
+\l reshwap_users
+\q
+\exit
+exit
+\q
+\l
+l
+table
+\t
+\t
+\l
+\dt
+\c momentsdb
+SELECT * FROM table_name;
+SELECT * FROM table_name;
+EXIT
+]Q
+\Q
+\q
+DROP DATABASE momentsdbl
+DROP DATABASE momentsdb;
+\q
+DROP
+DROP DATABASE
+DROP DATABASE;
+DROP DATABASE momentsdb
+DROP DATABASE momentsdb;
+DROP DATABASE momentsdb
+DROP DATABASE momentsdb;
+DROP 
+D
+A
+D;
+DROP DATABASE momentsdb;
+DROP DATABASE momentsdb;
+\q
+SELECT * FROM alembic_version;
+create database reshwapdb;
+reshwapdb
+ls
+SELECT * FROM reshwapdb
+\d
+\?
+\D\d
+\d
+\dS
+\c reshwapdb
+\c alembic_version
+q
+\q
+/s
+\d reshwapdb
+\d
+\s
+\c reshwapdb
+\da
+\c reshwap_items
+\s reshwap_items

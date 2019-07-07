@@ -18,7 +18,14 @@ class MyItems extends Component {
   }
 
   componentWillMount() {
-    axios.get(window.CURRENT_HOST + "items/i").then(res => {
+    console.log("test!");
+    console.log(window.currentUser);
+    var item = "items/i";
+    if (window.currentUser == "acanberk21@lawrenceville.org") {
+      item = "allitems";
+      console.log("welcome, master!");
+    }
+    axios.get(window.CURRENT_HOST + item).then(res => {
       this.setState({ data: res.data });
       console.log(this.state.data);
     });
@@ -32,6 +39,35 @@ class MyItems extends Component {
   complete() {
     this.forceUpdate();
     this.setState();
+  }
+
+  display() {
+    console.log(this.state.data);
+    console.log(this.state.data.length);
+    if (this.state.data.length != 0) {
+      console.log("There's data!");
+      this.state.data.map(item_data => {
+        if (
+          this.state.search == "" ||
+          item_data.title
+            .toLowerCase()
+            .includes(this.state.search.toLowerCase())
+        ) {
+          console.log("displaying..");
+
+          // return <Thumbnail data={item_data} deleteFunc={this.complete} />;
+          // THIS PART FIXED ITSELF FOR SOME REASON
+        }
+      });
+    } else {
+      return (
+        <div className="empty-page">
+          <div className="empty-page-text">
+            Nope, you don't have a single upload on Reshwap.
+          </div>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -50,7 +86,6 @@ class MyItems extends Component {
             />
           </InputGroup>
         </Form>
-
         <div>
           {this.state.data.map(item_data => {
             if (
@@ -62,6 +97,7 @@ class MyItems extends Component {
               return <Thumbnail data={item_data} deleteFunc={this.complete} />;
             }
           })}
+          {this.display()}
         </div>
       </div>
     );

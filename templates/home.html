@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
     <script src="//static.filestackapi.com/filestack-js/1.x.x/filestack.min.js"></script>
 
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheet.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+    />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+      integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"
+    ></script>
     <script>
-    var currentUser = "{{ user }}";
-var CURRENT_HOST = "{{ current_host }}";
-var ACCESS_KEY_ID = "{{ accessKeyId }}";
-var SECRET_KEY = "{{ secretKey }}";
-</script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-124483316-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-  dataLayer.push(arguments);
-}
-gtag("js", new Date());
+      var currentUser = "{{ user }}";
+      var CURRENT_HOST = "{{ current_host }}";
+      var ACCESS_KEY_ID = "{{ accessKeyId }}";
+      var SECRET_KEY = "{{ secretKey }}";
+      var school = "{{ school }}";
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-124483316-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-gtag("config", "UA-124483316-1");
+      gtag("config", "UA-124483316-1");
 
-gtag("config", "UA-124483316-1");
+      gtag("config", "UA-124483316-1");
 
-gtag("config", "UA-124483316-1");
+      gtag("config", "UA-124483316-1");
 
-gtag("config", "UA-124483316-1");
-</script>
+      gtag("config", "UA-124483316-1");
+    </script>
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -48,21 +68,40 @@ gtag("config", "UA-124483316-1");
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <link rel="apple-touch-icon" sizes="180x180" href="static/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
-    <link rel="manifest" href="static/favicons/manifest.json">
-    <link rel="mask-icon" href="static/favicons/safari-pinned-tab.svg" color="#f77a37">
-    <link rel="shortcut icon" href="static/favicons/favicon.ico">
-    <meta name="msapplication-config" content="static/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#f77a37">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="static/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="static/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="static/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="static/favicons/manifest.json" />
+    <link
+      rel="mask-icon"
+      href="static/favicons/safari-pinned-tab.svg"
+      color="#f77a37"
+    />
+    <link rel="shortcut icon" href="static/favicons/favicon.ico" />
+    <meta
+      name="msapplication-config"
+      content="static/favicons/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#f77a37" />
 
     <title>Reshwap</title>
   </head>
   <body id="bootstrap-overrides">
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -75,5 +114,52 @@ gtag("config", "UA-124483316-1");
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script type="text/javascript" src="/static/bundle.js"></script>
+    <footer class="footer-distributed">
+      <div class="footer-left">
+        <p class="footer-links">
+          <a href="#">Home</a> · <a href="#">Blog</a> ·
+          <a href="#">Pricing</a> · <a href="#">About</a> ·
+          <a href="#">Faq</a> · <a href="#">Contact</a>
+        </p>
+        <p class="footer-company-name">Reshwap © 2019</p>
+      </div>
+      <div class="footer-center">
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <p><span>2500 Main Street</span> Lawrenceville, NJ</p>
+        </div>
+        <div>
+          <i class="fa fa-phone"></i>
+          <p>+1 323 449 4119</p>
+        </div>
+        <div>
+          <i class="fa fa-envelope"></i>
+          <p><a href="mailto:support@company.com">reshwap2019@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <p class="footer-company-about">
+          <span>About the company</span> Reshwap is a trading website that
+          allows students to sell their items to people in their own school.
+        </p>
+        <div class="footer-icons">
+          <a href="#"
+            ><i
+              class="fa fa-instagram
+            "
+            ></i
+          ></a>
+          <a href="https://www.facebook.com/Reshwap-444132879764411"
+            ><i class="fa fa-facebook"></i
+          ></a>
+          <a href="https://www.linkedin.com/company/reshwap/"
+            ><i class="fa fa-linkedin"></i
+          ></a>
+          <a href="https://github.com/alpertucanberk"
+            ><i class="fa fa-github"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

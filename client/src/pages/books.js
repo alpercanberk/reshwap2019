@@ -52,6 +52,18 @@ class Books extends Component {
     console.log(event.target.value);
   }
 
+  empty() {
+    if (this.state.data.length == 0) {
+      return (
+        <div className="empty-page">
+          <div className="empty-page-text">
+            Sorry, no uploads on this page yet.
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
@@ -97,6 +109,7 @@ class Books extends Component {
             }
           }
         })}
+        {this.empty()}
       </div>
     );
   }

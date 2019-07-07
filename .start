@@ -1,5 +1,6 @@
+source venv/bin/activate
 cd client
 npm run deploy
 cd ..
 source .env
-python app.py
+flask run

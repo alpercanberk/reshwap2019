@@ -11,11 +11,37 @@ import google_auth_oauthlib.flow
 import datetime
 import json
 
+
 #scopes list determines which data we get from the user
 oauth_scopes = [
+"openid",
 "https://www.googleapis.com/auth/userinfo.email", #gets google profile
 "https://www.googleapis.com/auth/userinfo.profile", #gets google email adress
 ]
+
+def email_to_school(email):
+    print email
+    special_indexes = []
+    for x in range(0, len(email)):
+        if email[x] == "." or email[x] == "@":
+            special_indexes.append(x)
+    print special_indexes
+    return email[special_indexes[-2]+1:special_indexes[-1]]
+
+def is_valid_school(email):
+    # if(("org" in email) or ("edu" in email) or ("k12" in email)):
+    #     return True
+    return False
+
+
+def credentials_to_dict(credentials):
+    return {'token': credentials.token,
+          'refresh_token': credentials.refresh_token,
+          'token_uri': credentials.token_uri,
+          'client_id': credentials.client_id,
+          'client_secret': credentials.client_secret,
+          'scopes': credentials.scopes}
+
 
 app = Flask(__name__,template_folder="templates")
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -24,76 +50,10 @@ db = SQLAlchemy(app)
 #configurates SQLAlchemy
 
 #ReshwapItems is the database model for reshwap_items
-class ReshwapItems(db.Model):
-    __tablename__ = 'reshwap_items'
-
-    id = db.Column(db.Integer, primary_key=True)
-    uploader = db.Column(db.String())
-    title = db.Column(db.String())
-    details = db.Column(db.String())
-    category = db.Column(db.String())
-    department = db.Column(db.String())
-    money = db.Column(db.String())
-    exchange = db.Column(db.String())
-    image_one = db.Column(db.String())
-    image_two = db.Column(db.String())
-    image_three = db.Column(db.String())
-    image_four = db.Column(db.String())
-    date = db.Column(db.String())
-    is_completed = db.Column(db.Boolean())
-
-
-    def __init__(self, uploader, title, details, category, department, money, exchange, image_one, image_two, image_three, image_four, date, is_completed):
-        self.uploader = uploader
-        self.title = title
-        self.details = details
-        self.category = category
-        self.department = department
-        self.money = money
-        self.exchange = exchange
-        self.image_one = image_one
-        self.image_two = image_two
-        self.image_three = image_three
-        self.image_four = image_four
-        self.date = date
-        self.is_completed = is_completed
-
-    def createSession(self):
-        Session = sessionmaker()
-        self.session = Session.configure(bind=self.engine)
-
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
-
-class ReshwapUsers(db.Model):
-    __tablename__ = 'reshwap_users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
-    profile_pic = db.Column(db.String())
-    email = db.Column(db.String())
-    signup_date = db.Column(db.String())
-    last_login = db.Column(db.String())
-
-    def __init__(self, name, profile_pic, email, signup_date, last_login):
-        self.name = name
-        self.profile_pic = profile_pic
-        self.email = email
-        self.signup_date = signup_date
-        self.last_login = last_login
-
-
-    def createSession(self):
-        Session = sessionmaker()
-        self.session = Session.configure(bind=self.engine)
-
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
-
+from models import *
 
 @app.route('/')
 def index():
-
     if('credentials' in flask.session):
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
@@ -102,14 +62,15 @@ def index():
                                user = flask.session['user_info']['email'],
                                current_host= flask.request.url_root,
                                accessKeyId = os.environ["ACCESS_KEY_ID"],
-                               secretKey = os.environ["SECRET_KEY"])
+                               secretKey = os.environ["SECRET_KEY"],
+                               school = (email_to_school(flask.session["user_info"]['email'])).upper())
 
     return render_template("index.html")
 
 
 @app.route('/no')
 def no():
-    return redirect("https://www.reshwap.com")
+    return redirect(url_for('index'))
 
 @app.route('/items/i')
 def myitems():
@@ -126,12 +87,26 @@ def myitems():
     else:
         return '"Hey! What are you doing?" -Harry Flaherty'
 
-@app.route('/complete',methods=["DELETE"])
+@app.route('/allitems')
+def allitems():
+    if(flask.session["user_info"]["email"] == "acanberk21@lawrenceville.org"):
+        myitems = db.session.query(ReshwapItems).filter(ReshwapItems.is_completed == False).all()
+        myitems_list = []
+        for item in myitems:
+            print item
+            dict = vars(item)
+            dict.pop('_sa_instance_state')
+            myitems_list.append(dict)
+
+        return jsonify(myitems_list)
+
+@app.route('/complete',methods=["POST"])
 def complete():
+    print "hi"
     id = request.args.get('id')
     complete_item = db.session.query(ReshwapItems).filter(ReshwapItems.id == id).first()
     print("Hey")
-    if(complete_item.uploader == flask.session["user_info"]["email"]):
+    if(flask.session["user_info"]["email"] == "acanberk21@lawrenceville.org" or complete_item.uploader == flask.session["user_info"]["email"]):
         complete_item.is_completed = True
         db.session.commit()
         print("an item is completed")
@@ -147,14 +122,14 @@ def upload():
     newItem = ReshwapItems(data["uploader"], data["title"], data["details"],
                            data["category"], data["department"], data["money"],
                            data["exchange"], images[0], images[1], images[2],
-                           images[3], datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y"), False)
+                           images[3], datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y"), False, email_to_school(flask.session["user_info"]["email"]))
     db.session.add(newItem)
     db.session.commit()
     return "ok"
 
 @app.route('/items', methods=['GET'])
 def items(category=None):
-    all_items = db.session.query(ReshwapItems).filter(ReshwapItems.is_completed == False)
+    all_items = db.session.query(ReshwapItems).filter(ReshwapItems.is_completed == False).filter(ReshwapItems.school == email_to_school(flask.session["user_info"]["email"]))
     uploaders = request.args.get('uploaders')
     category = request.args.get('category')
     department = request.args.get('department')
@@ -192,15 +167,6 @@ def auth():
 
     return redirect(authorization_url)
 
-
-def credentials_to_dict(credentials):
-    return {'token': credentials.token,
-          'refresh_token': credentials.refresh_token,
-          'token_uri': credentials.token_uri,
-          'client_id': credentials.client_id,
-          'client_secret': credentials.client_secret,
-          'scopes': credentials.scopes}
-
 @app.route('/oauth2callback')
 def oauth2callback():
     state = flask.session['state']
@@ -225,8 +191,7 @@ def oauth2callback():
 
     flask.session["user_info"] = user_info
 
-    if("@lawrenceville.org" in flask.session["user_info"]["email"]):
-
+    if("@" in flask.session["user_info"]["email"]):
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         print found_user
         print "User creation process initializing..."
@@ -243,7 +208,7 @@ def oauth2callback():
             db.session.commit()
             print "NEW USER CREATED \n\n\n\n"
         else:
-            print("someone is signing in again...")
+            print("Someone is signing in again...")
             found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
             db.session.commit()
         return redirect("/")
@@ -255,6 +220,8 @@ def logout():
     flask.session.pop('credentials', None)
     flask.session.pop('state', None)
     flask.session.pop('user_info', None)
+    flask.session.pop('school', None)
+
 
     return redirect('/')
 
@@ -265,4 +232,5 @@ def certificate():
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.config['SESSION_TYPE'] = 'filesystem'
+    app.config['OAUTHLIB_RELAX_TOKEN_SCOPE'] = 1
     app.run(port=os.environ['PORT'])

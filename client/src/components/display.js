@@ -30,6 +30,29 @@ class Display extends Component {
     console.log(event.target.value);
   }
 
+  display() {
+    if (this.state.data.length != 0) {
+      this.state.data.map(item_data => {
+        if (
+          this.state.search == "" ||
+          item_data.title
+            .toLowerCase()
+            .includes(this.state.search.toLowerCase())
+        ) {
+          return <Thumbnail data={item_data} />;
+        }
+      });
+    } else {
+      return (
+        <div className="empty-page">
+          <div className="empty-page-text">
+            Sorry, no uploads on this page yet.
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
@@ -47,18 +70,7 @@ class Display extends Component {
           </InputGroup>
         </Form>
 
-        <div>
-          {this.state.data.map(item_data => {
-            if (
-              this.state.search == "" ||
-              item_data.title
-                .toLowerCase()
-                .includes(this.state.search.toLowerCase())
-            ) {
-              return <Thumbnail data={item_data} />;
-            }
-          })}
-        </div>
+        <div>{this.display()}</div>
       </div>
     );
   }

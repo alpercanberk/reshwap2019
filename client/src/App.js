@@ -30,6 +30,21 @@ import axios from "axios";
 import Display from "./components/display.js";
 
 class App extends Component {
+  school() {
+    var schools_with_logo = ["LAWRENCEVILLE"];
+    if (schools_with_logo.includes(window.school)) {
+      return (
+        <span className="school-logo-container">
+          <img
+            src={"static/" + window.school + ".png"}
+            className="school-logo"
+          />
+        </span>
+      );
+    }
+    return <span className="school-name">{window.school}</span>;
+  }
+
   render() {
     return (
       <div>
@@ -38,6 +53,7 @@ class App extends Component {
             <div>
               <Navbar inverse collapseOnSelect id="homenav">
                 <Navbar.Header>
+                  {this.school()}
                   <Navbar.Brand>
                     <img src={"static/Reshwap Backup Logo 6.svg"} />
                   </Navbar.Brand>
@@ -108,13 +124,11 @@ class App extends Component {
                 axios
                   .get("/logout")
                   .then((window.location = window.CURRENT_HOST));
+                window.location = window.CURRENT_HOST;
               }}
             />
           </div>
         </HashRouter>
-        <footer className="footer">
-          Reshwap 2019 - created by Alper Canberk
-        </footer>
       </div>
     );
   }
