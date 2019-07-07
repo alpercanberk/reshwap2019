@@ -14,6 +14,7 @@ import json
 
 #scopes list determines which data we get from the user
 oauth_scopes = [
+"openid",
 "https://www.googleapis.com/auth/userinfo.email", #gets google profile
 "https://www.googleapis.com/auth/userinfo.profile", #gets google email adress
 ]
