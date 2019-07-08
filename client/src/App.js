@@ -31,7 +31,7 @@ import Display from "./components/display.js";
 
 class App extends Component {
   school() {
-    var schools_with_logo = ["LAWRENCEVILLE"];
+    var schools_with_logo = ["LAWRENCEVILLE", "asdf"];
     if (schools_with_logo.includes(window.school)) {
       return (
         <span className="school-logo-container">
