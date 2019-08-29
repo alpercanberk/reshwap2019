@@ -36,7 +36,7 @@ class App extends Component {
       return (
         <span className="school-logo-container">
           <img
-            src={"static/logos/" + window.school + ".png"}
+            src={"static/" + window.school + ".png"}
             className="school-logo"
           />
         </span>

@@ -29,8 +29,8 @@ def email_to_school(email):
     return email[special_indexes[-2]+1:special_indexes[-1]]
 
 def is_valid_school(email):
-    # if(("org" in email) or ("edu" in email) or ("k12" in email)):
-    #     return True
+    if(("org" in email) or ("edu" in email) or ("k12" in email)):
+        return True
     return False
 
 
@@ -191,7 +191,7 @@ def oauth2callback():
 
     flask.session["user_info"] = user_info
 
-    if("@" in flask.session["user_info"]["email"]):
+    if(is_valid_school(flask.session["user_info"]["email"])):
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         print found_user
         print "User creation process initializing..."
