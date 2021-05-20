@@ -422,6 +422,13 @@ a:hover {
   margin: 5px;
 }
 
+.back-button{
+  border-radius:5px;
+  background-color:black;
+  padding:10px;
+  font-size:20px;
+}
+
 .login:hover {
   background-color: #eb6c5a;
   border-color: #eb6c5a;
@@ -634,11 +641,11 @@ label:hover {
 
 .index-btn:hover {
   color: #fff;
-  background-color: #ff5858;
+  background-color: black;
 }
 
 .footer-distributed {
-  background-color: #fe6152;
+  background-color: black;
   color: white;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;

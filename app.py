@@ -1,5 +1,5 @@
 
-from flask import Flask, redirect, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -20,12 +20,12 @@ oauth_scopes = [
 ]
 
 def email_to_school(email):
-    print email
+    print(email)
     special_indexes = []
     for x in range(0, len(email)):
         if email[x] == "." or email[x] == "@":
             special_indexes.append(x)
-    print special_indexes
+    print(special_indexes)
     return email[special_indexes[-2]+1:special_indexes[-1]]
 
 def is_valid_school(email):
@@ -54,6 +54,7 @@ from models import *
 
 @app.route('/')
 def index():
+    print(os.environ['CLIENT_SECRET'])
     if('credentials' in flask.session):
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
@@ -68,9 +69,31 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/no')
-def no():
-    return redirect(url_for('index'))
+@app.route('/invalid_account')
+def invalid_account():
+    flask.session.pop('credentials', None)
+    flask.session.pop('state', None)
+    flask.session.pop('user_info', None)
+    flask.session.pop('school', None)
+    return render_template("invalid_account.html")
+
+@app.errorhandler(404)
+def page_not_found(e):
+    flask.session.pop('credentials', None)
+    flask.session.pop('state', None)
+    flask.session.pop('user_info', None)
+    flask.session.pop('school', None)
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    flask.session.pop('credentials', None)
+    flask.session.pop('state', None)
+    flask.session.pop('user_info', None)
+    flask.session.pop('school', None)
+    # note that we set the 404 status explicitly
+    return render_template('500.html'), 404
 
 @app.route('/items/i')
 def myitems():
@@ -78,7 +101,6 @@ def myitems():
         myitems = db.session.query(ReshwapItems).filter(ReshwapItems.uploader == flask.session["user_info"]["email"]).filter(ReshwapItems.is_completed == False).all()
         myitems_list = []
         for item in myitems:
-            print item
             dict = vars(item)
             dict.pop('_sa_instance_state')
             myitems_list.append(dict)
@@ -93,7 +115,6 @@ def allitems():
         myitems = db.session.query(ReshwapItems).filter(ReshwapItems.is_completed == False).all()
         myitems_list = []
         for item in myitems:
-            print item
             dict = vars(item)
             dict.pop('_sa_instance_state')
             myitems_list.append(dict)
@@ -102,10 +123,8 @@ def allitems():
 
 @app.route('/complete',methods=["POST"])
 def complete():
-    print "hi"
     id = request.args.get('id')
     complete_item = db.session.query(ReshwapItems).filter(ReshwapItems.id == id).first()
-    print("Hey")
     if(flask.session["user_info"]["email"] == "acanberk21@lawrenceville.org" or complete_item.uploader == flask.session["user_info"]["email"]):
         complete_item.is_completed = True
         db.session.commit()
@@ -115,7 +134,6 @@ def complete():
 @app.route('/upload', methods=['POST'])
 def upload():
     data = request.json
-    print(request.json)
     images = ["","","",""]
     for x in range(0, len(data["imageUrls"])):
         images[x] = data["imageUrls"][x]
@@ -178,7 +196,6 @@ def oauth2callback():
     flow.fetch_token(authorization_response=authorization_response)
 
     credentials = flow.credentials
-    print(credentials_to_dict(credentials))
     flask.session['credentials'] = credentials_to_dict(credentials)
 
     if flask.session['credentials']['refresh_token'] == None:
@@ -193,8 +210,6 @@ def oauth2callback():
 
     if(is_valid_school(flask.session["user_info"]["email"])):
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
-        print found_user
-        print "User creation process initializing..."
 
         if(not found_user):
             user_info = flask.session["user_info"]
@@ -206,13 +221,11 @@ def oauth2callback():
                                    )
             db.session.add(newUser)
             db.session.commit()
-            print "NEW USER CREATED \n\n\n\n"
         else:
-            print("Someone is signing in again...")
             found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
             db.session.commit()
         return redirect("/")
-    return redirect("no")
+    return redirect("/invalid_account")
 
 @app.route('/logout')
 def logout():
