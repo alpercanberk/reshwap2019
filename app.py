@@ -54,8 +54,8 @@ from models import *
 
 @app.route('/')
 def index():
-    print(os.environ['CLIENT_SECRET'])
     if('credentials' in flask.session):
+        print(">>>>> Credentials in session")
         found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
         found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
         db.session.commit()
@@ -71,29 +71,29 @@ def index():
 
 @app.route('/invalid_account')
 def invalid_account():
-    flask.session.pop('credentials', None)
-    flask.session.pop('state', None)
-    flask.session.pop('user_info', None)
-    flask.session.pop('school', None)
+    # flask.session.pop('credentials', None)
+    # flask.session.pop('state', None)
+    # flask.session.pop('user_info', None)
+    # flask.session.pop('school', None)
     return render_template("invalid_account.html")
 
 @app.errorhandler(404)
 def page_not_found(e):
-    flask.session.pop('credentials', None)
-    flask.session.pop('state', None)
-    flask.session.pop('user_info', None)
-    flask.session.pop('school', None)
+    # flask.session.pop('credentials', None)
+    # flask.session.pop('state', None)
+    # flask.session.pop('user_info', None)
+    # flask.session.pop('school', None)
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
 @app.errorhandler(500)
 def page_not_found(e):
-    flask.session.pop('credentials', None)
-    flask.session.pop('state', None)
-    flask.session.pop('user_info', None)
-    flask.session.pop('school', None)
+    # flask.session.pop('credentials', None)
+    # flask.session.pop('state', None)
+    # flask.session.pop('user_info', None)
+    # flask.session.pop('school', None)
     # note that we set the 404 status explicitly
-    return render_template('500.html'), 404
+    return render_template('500.html'), 500
 
 @app.route('/items/i')
 def myitems():
@@ -133,6 +133,7 @@ def complete():
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    print(flask.session["user_info"])
     data = request.json
     images = ["","","",""]
     for x in range(0, len(data["imageUrls"])):
@@ -206,25 +207,27 @@ def oauth2callback():
     session = flow.authorized_session()
     user_info = session.get('https://www.googleapis.com/userinfo/v2/me').json()
 
-    flask.session["user_info"] = user_info
+    if("@lawrenceville.org" in user_info["email"]):
+        flask.session["user_info"] = user_info
+        print(">>>> User info has been set")
 
-    if(is_valid_school(flask.session["user_info"]["email"])):
-        found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
+        if(is_valid_school(flask.session["user_info"]["email"])):
+            found_user = db.session.query(ReshwapUsers).filter(ReshwapUsers.email == flask.session["user_info"]["email"]).all()
 
-        if(not found_user):
-            user_info = flask.session["user_info"]
-            newUser = ReshwapUsers(user_info["name"],
-                                   user_info["picture"],
-                                   user_info["email"],
-                                   datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y"),
-                                   datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-                                   )
-            db.session.add(newUser)
-            db.session.commit()
-        else:
-            found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-            db.session.commit()
-        return redirect("/")
+            if(not found_user):
+                user_info = flask.session["user_info"]
+                newUser = ReshwapUsers(user_info["name"],
+                                       user_info["picture"],
+                                       user_info["email"],
+                                       datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y"),
+                                       datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+                                       )
+                db.session.add(newUser)
+                db.session.commit()
+            else:
+                found_user[0].last_login = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+                db.session.commit()
+            return redirect("/")
     return redirect("/invalid_account")
 
 @app.route('/logout')
