@@ -53,7 +53,6 @@ class App extends Component {
             <div>
               <Navbar inverse collapseOnSelect id="homenav">
                 <Navbar.Header>
-                  {this.school()}
                   <Navbar.Brand>
                     <img src={"static/Reshwap Backup Logo 6.svg"} />
                   </Navbar.Brand>
