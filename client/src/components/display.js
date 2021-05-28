@@ -32,6 +32,7 @@ class Display extends Component {
 
   display() {
     if (this.state.data.length != 0) {
+      console.log("there are uploads")
       this.state.data.map(item_data => {
         if (
           this.state.search == "" ||
@@ -39,10 +40,14 @@ class Display extends Component {
             .toLowerCase()
             .includes(this.state.search.toLowerCase())
         ) {
-          return <Thumbnail data={item_data} />;
+          console.log(item_data.title);
+          // return <Thumbnail data={item_data} />;
+          // return (<div>Hello 1</div>);
         }
+        return "Hello";
       });
     } else {
+      console.log("no uploads on this page yet")
       return (
         <div className="empty-page">
           <div className="empty-page-text">
@@ -51,9 +56,39 @@ class Display extends Component {
         </div>
       );
     }
+
+    <div>{(()=>{
+      if (this.state.data.length != 0) {
+        console.log("there are uploads")
+        this.state.data.map(item_data => {
+          if (
+            this.state.search == "" ||
+            item_data.title
+              .toLowerCase()
+              .includes(this.state.search.toLowerCase())
+          ) {
+            console.log(item_data.title);
+            // return <Thumbnail data={item_data} />;
+            // return (<div>Hello 1</div>);
+          }
+          return "Hello";
+        });
+      } else {
+        console.log("no uploads on this page yet")
+        return (
+          <div className="empty-page">
+            <div className="empty-page-text">
+              Sorry, no uploads on this page yet.
+            </div>
+          </div>
+        );
+      }
+    })()}
+    </div>
   }
 
   render() {
+    // console.log(">>>>>", this.display());
     return (
       <div>
         <h3 className="bold" style={{ textAlign: "center" }}>
@@ -70,7 +105,34 @@ class Display extends Component {
           </InputGroup>
         </Form>
 
-        <div>{this.display()}</div>
+
+
+        <div>{(()=>{
+          const numbers = [1,2,3,4,5]
+          if (this.state.data.length != 0) {
+            console.log("there are uploads");
+            console.log(">>> data:", this.state.data);
+            // this.state.data.map(item_data => {
+            //   return <Thumbnail data={item_data} />;
+            // });
+            // a = numbers.map((number) => <div>{number}</div>)
+            // console.log(a);
+            // return a;
+            let data = this.state.data.map(item_data => <Thumbnail data={item_data} />);
+            console.log(data);
+            return data;
+          } else {
+            console.log("no uploads on this page yet")
+            return (
+              <div className="empty-page">
+                <div className="empty-page-text">
+                  Sorry, no uploads on this page yet.
+                </div>
+              </div>
+            );
+          }
+
+        })()}</div>
       </div>
     );
   }
