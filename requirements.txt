@@ -31,7 +31,7 @@ repoze.lru==0.7
 requests==2.19.1
 requests-oauthlib==1.0.0
 Routes==2.4.1
-rsa==3.4.2
+rsa==4.7.1
 six==1.11.0
 SQLAlchemy==1.2.9
 uritemplate==3.0.0
